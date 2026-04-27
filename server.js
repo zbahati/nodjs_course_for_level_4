@@ -8,6 +8,10 @@ app.get('/', (req, res) => {
     return res.send("Hello BAHATI")
 })
 
+app.get('/patients', (req, res) => {
+    return res.send("Patients lists")
+})
+
 
 con.connect((err) => {
     if (err) throw err;
