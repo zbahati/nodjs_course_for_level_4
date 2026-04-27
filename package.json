@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-course",
+  "version": "1.1.0",
+  "description": "\"we are going to learn nodjes course\"",
+  "license": "ISC",
+  "author": "bahati",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.22.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
