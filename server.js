@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const con = require('./db');
 
 const app = express();
@@ -13,11 +14,15 @@ app.get('/patients', (req, res) => {
     return res.send("Patients lists")
 })
 
-app.post('/add-user', (req, res) => {
+app.post('/add-user',async (req, res) => {
+    
     const {username, password} = req.body;
     const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
 
-    con.query(sql, [username, password], (err) => {
+    const base = 10;
+    const passwordHash = await bcrypt.hashSync(password, base);
+
+    con.query(sql, [username, passwordHash], (err) => {
         if (err) {
             console.error("Error inserting user: ", err);
             return res.status(500).json({ error: "Error adding user" });
