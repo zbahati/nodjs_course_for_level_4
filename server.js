@@ -5,10 +5,7 @@ const con = require('./db');
 const app = express();
 
 app.use(express.json());
-// test
-app.get('/', (req, res) => {
-    return res.send("Hello BAHATI")
-})
+
 
 app.get('/patients', (req, res) => {
     return res.send("Patients lists")
@@ -24,7 +21,7 @@ app.post('/add-user',async (req, res) => {
 
     con.query(sql, [username, passwordHash], (err) => {
         if (err) {
-            console.error("Error inserting user: ", err);
+          
             return res.status(500).json({ error: "Error adding user" });
         }
         return res.status(201).json({ message: "User added successfully" });
