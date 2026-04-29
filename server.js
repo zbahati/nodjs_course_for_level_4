@@ -1,34 +1,19 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const con = require('./db');
+const con = require('./model/db');
+const userRouter = require('./routes/userRoutes');
+const doctorRouter = require('./routes/doctorRoutes');
+const patientRouter = require('./routes/patientRoutes');
+const appointmentRouter = require('./routes/appointmentRoutes');
 
 const app = express();
 
 app.use(express.json());
-
-
-app.get('/patients', (req, res) => {
-    return res.send("Patients lists")
-})
-
-app.post('/add-user',async (req, res) => {
-    
-    const {username, password} = req.body;
-    const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-
-    const base = 10;
-    const passwordHash = await bcrypt.hashSync(password, base);
-
-    con.query(sql, [username, passwordHash], (err) => {
-        if (err) {
-          
-            return res.status(500).json({ error: "Error adding user" });
-        }
-        return res.status(201).json({ message: "User added successfully" });
-    })
-});
-
-
+// routes 
+app.use('/users', userRouter);
+app.use('/patients', patientRouter);
+app.use('/doctors', doctorRouter);
+app.use('/appointments', appointmentRouter);
+// connect to database and start server
 con.connect((err) => {
     if (err) throw err;
     console.log("connected to database");
