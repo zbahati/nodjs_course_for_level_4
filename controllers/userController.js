@@ -64,3 +64,4 @@ module.exports = {
     updateUser,
     deleteUser
 }
+
